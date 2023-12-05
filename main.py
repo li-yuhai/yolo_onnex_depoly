@@ -6,7 +6,28 @@ from utils.operation import YOLO
 import uvicorn
 
 
+from fastapi.middleware.cors import CORSMiddleware
+
 app = FastAPI()
+
+# 配置允许域名
+origins = [
+    "http://localhost:8080",
+    "http://localhost:1024",
+]
+
+# origins = ["*"]  # 允许所有的请求
+
+#  配置允许域名列表、允许方法、请求头、cookie等
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+
 # ======= 静态资源写法
 from fastapi.staticfiles import StaticFiles
 app.mount("/static/det_img", StaticFiles(directory="det_img"), name="det_img")  # 目标检测的检测图

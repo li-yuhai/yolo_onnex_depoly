@@ -33,7 +33,21 @@ uvicorn main:app --reload --host 0.0.0.0
 使用的是时间戳来实现文件保存的名称唯一性。
 1:模型加载一次操作 ，2:检测结果画出来，保存在det_img文件夹中 ，3:检测结果的json文件保存在det_json文件中，
 4：上传检测的图片会保存在det_origin_img文件夹中，5：不同类别检测框的颜色不一样。6：只需载入一次模型即可。
-
+7：添加跨域请求的处理
 
 ## 感谢原作者
 感谢原作者提供的代码，本代码是在此 https://github.com/luosaidage/yolov5_onnx_server.git 基础上进行修改的。
+
+## 问题与解决
+1: 我将代码部署到云服务器上出现的问题是会出现502状态码，可能原因是负载均衡以及性能问题，我尝试使用nginx进行代理，没有效果，
+最后通过使用pyhton的gunicorn(一个被广泛使用的高性能的Python WSGI UNIX HTTP服务器,使用非常简单，轻量级的资源消耗，以及高性能等特点)。
+执行下述命令将开户 4 个工作进程，其中 UvicornWorker 的实现使用 uvloop 和httptools 实现。
+
+https://fastapi.tiangolo.com/zh/deployment/server-workers/
+https://github.com/tiangolo/fastapi/issues/680
+
+```bash
+gunicorn -w 4 -k uvicorn.workers.UvicornH11Worker -b 0.0.0.0:8888 main:app
+```
+
+
