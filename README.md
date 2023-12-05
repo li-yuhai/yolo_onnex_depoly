@@ -51,3 +51,10 @@ gunicorn -w 4 -k uvicorn.workers.UvicornH11Worker -b 0.0.0.0:8888 main:app
 ```
 
 
+## linux操作
+查看应用程序宽口，停止运行
+```bash
+sudo lsof -i -nP | grep LISTEN
+
+kill -9 <pid>
+```
