@@ -42,7 +42,7 @@ uvicorn main:app --reload --host 0.0.0.0
 1: 我将代码部署到云服务器上出现的问题是会出现502状态码，可能原因是负载均衡以及性能问题，我尝试使用nginx进行代理，没有效果，
 最后通过使用pyhton的gunicorn(一个被广泛使用的高性能的Python WSGI UNIX HTTP服务器,使用非常简单，轻量级的资源消耗，以及高性能等特点)。
 执行下述命令将开户 4 个工作进程，其中 UvicornWorker 的实现使用 uvloop 和httptools 实现。
-(注意关闭云服务器的防火墙  )
+(注意关闭云服务器的防火墙  )。注意在部署后，代码中不要还有print等语句，会出错。
 ```bash
 //临时关闭
 systemctl stop firewalld
