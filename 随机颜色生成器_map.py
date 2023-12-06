@@ -27,5 +27,5 @@ bird_color = color_generator.get_color("bird")
 print(f"Cat color: {cat_color}")
 print(f"Dog color: {dog_color}")
 print(f"Bird color: {bird_color}")
-
+print(color_generator.get_color("cat"))
 
