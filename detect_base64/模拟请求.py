@@ -1,12 +1,15 @@
 
 
 import base64
+
+import cv2
+import numpy as np
 from PIL import Image
 from io import BytesIO
 
 
 # 读取图像文件
-image_path = "img/000003.jpeg"  # 替换成实际的图像文件路径
+image_path = "img/2023-10-17 12143.jpg"  # 替换成实际的图像文件路径
 with open(image_path, "rb") as image_file:
     # 将图像数据读取为字节流
     image_data = image_file.read()
@@ -41,15 +44,16 @@ data_to_send = {
 
 
 # 定义接口的 URL
-url = "http://59.110.152.138:9999/predict"  # 替换成实际的服务器地址
-# url = "http://127.0.0.1:9999/predict"  # 替换成实际的服务器地址
+# url = "http://59.110.152.138:8000/predict"  # 替换成实际的服务器地址
+# url = "http://127.0.0.1:8000/predict"  # 替换成实际的服务器地址
+url = "http://59.110.152.138:7777/predict"  # 替换成实际的服务器地址
 
 # headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Trident/7.0; rv:11.0) like Gecko',"Content-Type": "application/json"}
 
 
 # 发送 POST 请求
 # response = requests.post(url, json=data_to_send, headers=headers)
-response = requests.post(url, json=data_to_send, timeout=10)
+response = requests.post(url, json=data_to_send, timeout=30)
 
 # 检查请求是否成功
 if response.status_code == 200:
@@ -70,3 +74,6 @@ for item in predictions:
     if image.mode == 'RGBA':
         image = image.convert('RGB')
     image.save('test_img/' + image_name)
+
+    # decoded_im0_bgr = cv2.imdecode(np.frombuffer(decoded_data, np.uint8), cv2.IMREAD_COLOR)
+    # cv2.imwrite('test_img/' + image_name, decoded_im0_bgr)

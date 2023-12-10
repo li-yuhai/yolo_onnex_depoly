@@ -5,7 +5,7 @@ from io import BytesIO
 
 
 # 读取图像文件
-image_path = "img/000003.jpeg"  # 替换成实际的图像文件路径
+image_path = "img/test3.jpeg"  # 替换成实际的图像文件路径
 with open(image_path, "rb") as image_file:
     # 将图像数据读取为字节流
     image_data = image_file.read()

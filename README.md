@@ -64,5 +64,8 @@ gunicorn -w 4 -k uvicorn.workers.UvicornH11Worker -b 0.0.0.0:8888 main:app
 ```bash
 sudo lsof -i -nP | grep LISTEN
 
+# 关闭端口号为7777的应用程序
+ps -ef | grep 7777 | grep -v grep | cut -c 9-15 | xargs kill -9
+
 kill -9 <pid>
 ```
